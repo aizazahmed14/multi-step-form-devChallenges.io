@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step register Form</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="#" style="" class="step-1 active" id="step-1">
+            <h3>Register</h3>
+            <div class="input">
+                <label for="name">Name</label>
+                <input type="text" class="name" placeholder="Name" id="name">
+            </div>
+            <div class="input">
+                <label for="email">Email</label>
+                <input type="email" class="email" placeholder="email" id="email">
+            </div>
+            <input type="button" value="Continue" class="continue-1" id="continue-1">
+        </form>
+
+        <form action="#"  class="step-2" id="step-2">
+            <h3>Which topics you are interested in?</h3>
+            <div class="input checkbox">
+                
+                <input type="checkbox" id="chk1" value="Software Development" checked="checked">
+                <label for="chk1">Software Development</label>
+            </div>
+            <div class="input checkbox">
+                
+                <input type="checkbox" id="chk2"  value="User Experience" >
+                <label for="chk2">User Experience</label>
+            </div>
+
+            <div class="input checkbox">
+
+                <input type="checkbox" id="chk3" value="Graphic Design">
+                <label for="chk3">Graphic Design</label>
+            </div>
+
+            <input type="button" value="Continue" class="continue-2" id="continue-2">
+        </form>
+
+        
+        <div class="summary step-3" id="step-3">
+            <h3>Summary</h3>
+            <div class="registration-details">
+                <label for="">Name: </label>
+            <p id="show_name"></p>
+            </div>
+
+            <div class="registration-details">
+                <label for="email">Email: </label>
+            <p id="show_email"></p>
+            </div>
+
+            <div class="topic">
+            <label for="topic">Topics:</label>
+            
+            <ul id="show_topic">
+
+            </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="stepper" style="display: none;">
+        <div class="circle active"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    
+<script>
+    var continue1 = document.getElementById('continue-1');
+    var continue2 = document.getElementById('continue-2');
+
+    var step1 = document.getElementById('step-1');
+    var step2 = document.getElementById('step-2');
+    var step3 = document.getElementById('step-3');
+
+
+    continue1.onclick = function(){
+    
+
+        var name = document.getElementById('name').value.trim();
+        var email = document.getElementById('email').value.trim();
+       // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        
+        
+        if (name == "" ) {
+            alert('Name must be entered');
+        }
+        else if(email == "")
+        {
+            alert('email must be entered');
+        }
+        else if(email.match(mailformat))
+        {
+        step1.style.marginLeft = "-450px";
+         step2.style.marginLeft = "10px";
+        }
+        else{
+            alert('invalid');
+        }
+
+        
+    }
+
+    continue2.onclick = function(){
+        step2.style.marginLeft = "-450px";
+        step3.style.marginLeft = "10px";
+
+
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var chk1 = document.getElementById('chk1').value;
+    var chk2 = document.getElementById('chk2').value;
+    var chk3 = document.getElementById('chk3').value;
+
+
+
+    document.getElementById('show_name').innerHTML= name;
+    document.getElementById('show_email').innerHTML= email;
+    var selectedValues = [];
+
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    checkboxes.forEach(function(checkbox){
+        selectedValues.push(checkbox.value);
+    });
+
+    var ul = document.getElementById('show_topic');
+    ul.innerHTML = '';
+
+    selectedValues.forEach(function(value){
+        var li = document.createElement('li');
+        li.textContent = value;
+        ul.appendChild(li);
+    })
+    }
+
+    
+</script>
+</body>
+</html>
